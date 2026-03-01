@@ -1,0 +1,58 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+.venv
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb_checkpoints
+
+# Data files (too large for git)
+data/raw/*.csv
+data/raw/*.parquet
+data/bronze/
+data/silver/
+data/gold/
+*.csv
+*.parquet
+
+# Models (large files)
+models/
+mlruns/
+mlflow/
+
+# Results
+results/*.csv
+results/*.png
+results/*.jpg
+
+# Tableau
+tableau/*.twbx
+tableau/*.hyper
+tableau/*.tde
+
+# Spark
+spark-warehouse/
+derby.log
+metastore_db/
+*.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp

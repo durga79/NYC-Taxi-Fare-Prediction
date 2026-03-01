@@ -1,0 +1,122 @@
+# Spark Configuration for NYC Taxi ML Project
+# Optimized for local development and distributed processing
+
+spark:
+  app_name: "NYC_Taxi_ML_Pipeline"
+  
+  # Master configuration
+  # Use "local[*]" for local mode with all available cores
+  # Use "spark://host:port" for cluster mode
+  master: "local[*]"
+  
+  # Driver settings
+  driver:
+    memory: "8g"
+    cores: 4
+    maxResultSize: "2g"
+  
+  # Executor settings
+  executor:
+    memory: "4g"
+    cores: 4
+    instances: 2
+  
+  # SQL and DataFrame settings
+  sql:
+    shuffle:
+      partitions: 200
+    adaptive:
+      enabled: true
+      coalescePartitions:
+        enabled: true
+  
+  # Serialization
+  serializer: "org.apache.spark.serializer.KryoSerializer"
+  
+  # Event logging for Spark UI
+  eventLog:
+    enabled: true
+    dir: "file:///home/durga/CascadeProjects/nyc-taxi-ml-project/docs/spark-events"
+  
+  # UI settings
+  ui:
+    enabled: true
+    port: 4040
+    retainedJobs: 100
+    retainedStages: 100
+  
+  # Default parallelism
+  default:
+    parallelism: 100
+  
+  # Memory management
+  memory:
+    fraction: 0.6
+    storageFraction: 0.5
+  
+  # Network timeout
+  network:
+    timeout: "300s"
+
+# Project-specific settings
+project:
+  name: "NYC Taxi Fare Prediction"
+  version: "1.0.0"
+  seed: 42
+  
+  # Data paths
+  data:
+    raw: "data/raw"
+    bronze: "data/bronze/nyc_taxi_raw"
+    silver: "data/silver/nyc_taxi_clean"
+    gold: "data/gold/nyc_taxi_features"
+  
+  # Model settings
+  models:
+    output_dir: "models"
+    
+  # MLflow settings
+  mlflow:
+    tracking_uri: "file:///home/durga/CascadeProjects/nyc-taxi-ml-project/mlruns"
+    experiment_name: "NYC_Taxi_Fare_Prediction"
+  
+  # Feature engineering
+  features:
+    # NYC-specific rush hour definitions
+    rush_hour_morning_start: 7
+    rush_hour_morning_end: 9
+    rush_hour_evening_start: 17
+    rush_hour_evening_end: 19
+    
+    # Late night definition
+    late_night_start: 22
+    late_night_end: 5
+    
+    # NYC airport location IDs
+    jfk_zones: [132, 138]
+    lga_zones: [137, 138]
+    ewr_zones: [1]  # Newark (if in dataset)
+    
+    # Manhattan zone range (approximate)
+    manhattan_zone_min: 1
+    manhattan_zone_max: 100
+    
+    # Data quality thresholds
+    min_fare: 2.50
+    max_fare: 500.0
+    min_distance: 0.0
+    max_distance: 100.0
+    min_passengers: 1
+    max_passengers: 6
+    max_speed_mph: 80.0
+  
+  # Model training
+  training:
+    test_split: 0.2
+    validation_split: 0.1
+    cv_folds: 3
+    
+    # Hyperparameter tuning
+    tuning:
+      parallelism: 4
+      max_iterations: 50
